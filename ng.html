@@ -1,0 +1,103 @@
+<html ng-app="myInstaApp">
+    <head>
+        <link rel="stylesheet" href="magnific-popup.css"> 
+    </head>
+    <body>
+       <div class ="bio" ng-controller="BioController as bioController">
+           <img id="dp" width="110" height="110" src="{{bioController.bio[0].data.profile_picture}}"/>
+           <p><b>{{bioController.bio[0].data.username}}</b></p>
+           <p class="desc">
+           
+            <pre>{{bioController.bio[0].data.bio}}</pre>
+           </div>
+       </div>
+        
+        <div ng-controller="PhotoController as photoController">
+            <!--<img ng-repeat="i in photoController.pics" src="{{i.images.standard_resolution.url}}" width="200" height="200" ng-click="photoController.eventHandle(i);"/>-->
+            <div ng-repeat="i in photoController.pics" class="mainContainer">
+                <div class="pics">
+                    <img  src="{{i.images.standard_resolution.url}}" width="200" height="200" ng-click="photoController.eventHandle(i);"/>
+                </div>
+                <div>
+                    <p class="likes">Likes: {{i.likes.count}}</p>
+                    <p class="comments">comments: {{i.comments.count}}</p>
+                </div> 
+            </div>
+           
+        </div>
+        
+        
+        
+        <style>
+            
+            .pics {
+             padding: 0 0 0 10px;   
+            }
+            div.mainContainer {
+             float: left;   
+            }
+            
+            p.likes
+            {
+                float:left;
+            }
+            
+            p.comments
+            {
+                float: right;
+            }
+            
+            div.bio {
+                clear:both;
+                width: 200px;
+                height: 200px;
+                position: relative;
+                color: #666;
+                line-height: 19px;
+                font-family: 'proxima-nova','Helvetica Neue',Arial,Helvetica,sans-serif;
+                -webkit-font-smoothing: antialiased;
+                overflow: auto;
+                margin: 0 0 -1px;
+                word-break: break-word;
+                padding-left: 0;
+                padding-top: 10px;
+                padding-right: 270px;
+                text-overflow: ellipsis;
+                
+            }
+            div.bio pre{
+                margin: 0 0 0 130px;
+                padding: 0;
+                position: absolute;
+                top: 40;
+                
+            }
+            div.bio strong{
+                color: #444;
+                display: inline-block;
+                margin-bottom: -1px;
+                font-weight: 700;
+                
+            }
+            div.desc {
+                margin: 0;
+                padding: 0 0 0 129px;
+                position: absolute;
+                top: 65;
+                color: #111;
+                font-size: 23px;
+                line-height: 30px;
+                width: 150px;
+                height: 70px;
+            }
+            
+            
+            
+        </style>
+        
+        <script src="jquery-1.11.1.min.js"></script>
+        <script src="jquery.magnific-popup.js"></script>
+        <script src="angular.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
