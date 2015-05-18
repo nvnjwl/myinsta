@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="magnific-popup.css"> 
+    </head>
+    <body>
+        <h2 id="name"></h2>
+        <p id="desc"></p>
+        
+        
+         <script src="jquery-1.11.1.min.js"></script>
+        <script src="jquery.magnific-popup.js"></script>
+       
+        <script>
+            $.noConflict();
+            jQuery(document).ready(function($){
+                var arrImg = [];
+                var photoObj;
+                $.ajax({
+                    url: "page.php",
+                    dataType: "json",
+                    success:function(resp){
+                        if(resp.meta = "200") {
+                            //console.log("success happpened");
+                            //photoObj = $.parseJSON(resp);
+                            //consolel.log(photoObj);
+                           
+                            gotData(resp);
+                        }
+                    },
+                    error: function(e){
+                        console.log("error"+e);
+                        for(var i in e)
+                        {
+                            console.log(e[i]);
+                        }
+                    }
+                });
+                
+               
+                function gotData(resp)
+                {
+                    alert("blah");
+                    for(var i=0; i<resp.data.length;i++)
+                    {
+                        console.log(resp.data[i]);
+                        var img = resp.data[i].images.thumbnail.url;
+                        arrImg.push({id: i, src: resp.data[i].images.standard_resolution.url});
+
+                        $('<img src='+img+' '+'id='+i+' '+'class=myFeedThumb'+'>').insertAfter('#desc');
+                    }
+                        console.log("len=="+arrImg.length);
+                    registerListener();
+                }
+                
+                function registerListener()
+                {
+                    $("img.myFeedThumb").bind("click",loadBigImg);
+                }
+                
+                function loadBigImg()
+                {
+                    //alert(arrImg[this.id].src);
+                    $.magnificPopup.open({
+                        items: {
+                          src: arrImg[this.id].src
+                        },
+                        type: 'image' // this is default type
+                    });
+                }
+               
+            });
+        </script>
+    
+    </body>
+</html>
